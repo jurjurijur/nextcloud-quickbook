@@ -1,0 +1,6 @@
+# Build output (make package)
+/dist/
+# Unrelated project in the same folder
+/event_update_notification/
+# Dev environment secrets (created by dev/setup.sh)
+.env

@@ -1,0 +1,444 @@
+/* Quick Booking public page. Uses Nextcloud theme variables so it follows the instance theme. */
+
+.quickbook {
+	box-sizing: border-box;
+	width: 100%;
+	/* Nextcloud's public layout clips #content, so this is the scroll container */
+	height: 100%;
+	overflow-y: auto;
+	/* bottom room so the fixed Nextcloud footer never covers the buttons */
+	padding: 24px 16px calc(var(--footer-height, 45px) + 48px);
+	color: var(--color-main-text);
+}
+
+.quickbook *,
+.quickbook *::before,
+.quickbook *::after {
+	box-sizing: border-box;
+}
+
+.quickbook__card {
+	max-width: 960px;
+	margin: 0 auto;
+	background: var(--color-main-background);
+	border-radius: var(--border-radius-large, 16px);
+	box-shadow: 0 0 10px var(--color-box-shadow);
+	padding: 24px;
+}
+
+.quickbook__header {
+	margin-bottom: 20px;
+}
+
+.quickbook__title {
+	margin: 0;
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+.quickbook__organizer {
+	margin: 4px 0 8px;
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook__facts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 20px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.quickbook__facts li {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.quickbook__icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background-size: 16px;
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0.7;
+}
+
+.quickbook__icon--clock {
+	background-image: var(--icon-history-dark, none);
+}
+
+.quickbook__icon--location {
+	background-image: var(--icon-address-dark, none);
+}
+
+.quickbook__description {
+	margin: 12px 0 0;
+	white-space: pre-wrap;
+}
+
+/* Steps */
+.quickbook__steps {
+	display: flex;
+	gap: 8px;
+	margin: 0 0 20px;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid var(--color-border);
+	padding-top: 16px;
+}
+
+.quickbook__step {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook__step-number {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	border: 2px solid var(--color-border-dark);
+	font-size: 0.85em;
+	font-weight: bold;
+}
+
+.quickbook__step--current {
+	color: var(--color-main-text);
+	font-weight: bold;
+}
+
+.quickbook__step--current .quickbook__step-number,
+.quickbook__step--done .quickbook__step-number {
+	background: var(--color-primary-element);
+	border-color: var(--color-primary-element);
+	color: var(--color-primary-element-text);
+}
+
+.quickbook__content:focus {
+	outline: none;
+}
+
+/* Date & time picker */
+.quickbook__picker {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 24px;
+}
+
+.quickbook__month {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 8px;
+}
+
+.quickbook__month-name {
+	margin: 0;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
+.quickbook__nav {
+	min-width: 44px;
+	min-height: 44px;
+	margin: 0;
+	font-size: 1.4em;
+	line-height: 1;
+}
+
+.quickbook__grid {
+	display: grid;
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+	gap: 4px;
+}
+
+.quickbook__weekday {
+	padding: 4px 0;
+	text-align: center;
+	font-size: 0.85em;
+	color: var(--color-text-maxcontrast);
+	text-transform: capitalize;
+}
+
+.quickbook__day {
+	aspect-ratio: 1 / 1;
+	min-height: 40px;
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: var(--border-radius-element, 8px);
+	background: var(--color-primary-element-light);
+	color: var(--color-primary-element-light-text);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.quickbook__day:hover:not(:disabled) {
+	background: var(--color-primary-element-light-hover);
+}
+
+.quickbook__day:disabled {
+	background: transparent;
+	color: var(--color-text-maxcontrast);
+	font-weight: normal;
+	opacity: 0.5;
+	cursor: default;
+}
+
+.quickbook__day--blank {
+	background: transparent;
+	cursor: default;
+}
+
+.quickbook__day--today {
+	border-color: var(--color-border-dark);
+}
+
+.quickbook__day--selected,
+.quickbook__day--selected:hover:not(:disabled) {
+	background: var(--color-primary-element);
+	color: var(--color-primary-element-text);
+}
+
+.quickbook__slots-title {
+	margin: 0;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.quickbook__tz {
+	margin: 2px 0 12px;
+	font-size: 0.9em;
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook__slot-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+	gap: 8px;
+	max-height: 360px;
+	overflow-y: auto;
+}
+
+.quickbook__slot {
+	margin: 0;
+	min-height: 44px;
+	border: 2px solid var(--color-primary-element);
+	border-radius: var(--border-radius-element, 8px);
+	background: transparent;
+	color: var(--color-main-text);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.quickbook__slot:hover {
+	background: var(--color-primary-element-light);
+}
+
+.quickbook .quickbook__slot--selected,
+.quickbook .quickbook__slot--selected:hover {
+	background: var(--color-primary-element);
+	color: var(--color-primary-element-text);
+}
+
+.quickbook__hint {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook__spinner {
+	display: inline-block;
+}
+
+/* Forms */
+.quickbook__chosen {
+	margin: 0 0 16px;
+	padding: 12px;
+	border-radius: var(--border-radius-element, 8px);
+	background: var(--color-background-hover);
+}
+
+.quickbook__form {
+	max-width: 520px;
+}
+
+.quickbook__field {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 16px;
+}
+
+.quickbook__field label {
+	margin-bottom: 4px;
+	font-weight: bold;
+}
+
+.quickbook__field input,
+.quickbook__field textarea {
+	width: 100%;
+	margin: 0;
+	font-size: 1em;
+}
+
+.quickbook__field textarea {
+	min-height: 96px;
+	resize: vertical;
+}
+
+.quickbook__field-hint {
+	margin: 4px 0 0;
+	font-size: 0.9em;
+	color: var(--color-text-maxcontrast);
+}
+
+/* Summary */
+.quickbook__summary {
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	gap: 8px 24px;
+	max-width: 640px;
+	margin: 16px 0;
+}
+
+.quickbook__summary dt,
+.quickbook__summary dd {
+	/* reset Nextcloud's global dl styling */
+	display: block;
+	margin: 0;
+	padding: 0;
+	text-align: start;
+}
+
+.quickbook__summary dt {
+	font-weight: bold;
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook__summary dd {
+	margin: 0;
+	overflow-wrap: anywhere;
+	white-space: pre-wrap;
+}
+
+/* Buttons & messages */
+.quickbook__actions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 24px;
+}
+
+.quickbook__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	margin: 0;
+	padding: 0 20px;
+	border-radius: var(--border-radius-element, 8px);
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* Extra specificity: Nextcloud's global button styles would win otherwise */
+.quickbook .quickbook__button--primary:not(:disabled) {
+	background: var(--color-primary-element);
+	border-color: var(--color-primary-element);
+	color: var(--color-primary-element-text);
+}
+
+.quickbook .quickbook__button--primary:hover:not(:disabled) {
+	background: var(--color-primary-element-hover);
+}
+
+.quickbook .quickbook__link,
+.quickbook .quickbook__link:hover {
+	margin: 0;
+	padding: 0 4px;
+	min-height: 0;
+	border: none;
+	background: none;
+	color: var(--color-primary-element);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.quickbook__error {
+	margin: 0 0 16px;
+	padding: 12px;
+	border-left: 4px solid var(--color-error);
+	border-radius: var(--border-radius-element, 8px);
+	background: var(--color-background-hover);
+}
+
+.quickbook__done {
+	text-align: center;
+	margin: 8px 0 24px;
+}
+
+.quickbook__done h3 {
+	margin: 8px 0;
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+.quickbook__done-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: var(--color-success-text, var(--color-success));
+	color: #fff;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+@media (max-width: 720px) {
+	.quickbook {
+		padding: 12px 8px calc(var(--footer-height, 45px) + 32px);
+	}
+
+	.quickbook__card {
+		padding: 16px;
+	}
+
+	.quickbook__picker {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.quickbook__step {
+		font-size: 0.85em;
+	}
+
+	.quickbook__summary {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2px;
+	}
+
+	.quickbook__summary dd {
+		margin-bottom: 8px;
+	}
+
+	.quickbook__actions {
+		justify-content: stretch;
+	}
+
+	.quickbook__actions .quickbook__button {
+		flex: 1;
+	}
+}

@@ -1,0 +1,104 @@
+.quickbook-settings__schedules {
+	margin: 16px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.quickbook-settings__schedule {
+	margin-bottom: 16px;
+	padding: 12px 16px;
+	max-width: 760px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius-large, 12px);
+}
+
+.quickbook-settings__name {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.quickbook-settings__badge {
+	padding: 0 8px;
+	border-radius: var(--border-radius-pill, 16px);
+	background: var(--color-background-dark);
+	font-size: 0.85em;
+}
+
+.quickbook-settings__label {
+	margin: 8px 0 4px;
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook-settings__url {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.quickbook-settings__url input {
+	flex: 1;
+	min-width: 220px;
+}
+
+.quickbook-settings__link {
+	color: var(--color-primary-element);
+	text-decoration: underline;
+}
+
+.quickbook-settings__warning,
+.quickbook-settings__state--off {
+	padding: 8px 12px;
+	border-left: 4px solid var(--color-error);
+	background: var(--color-background-hover);
+}
+
+.quickbook-settings__state--on {
+	padding: 8px 12px;
+	border-left: 4px solid var(--color-success);
+	background: var(--color-background-hover);
+}
+
+.quickbook-settings__facts {
+	display: grid;
+	grid-template-columns: max-content auto;
+	gap: 4px 16px;
+	margin: 12px 0;
+}
+
+.quickbook-settings__facts dt,
+.quickbook-settings__facts dd {
+	/* reset Nextcloud's global dl styling */
+	margin: 0;
+	padding: 0;
+	text-align: start;
+}
+
+.quickbook-settings__facts dt {
+	color: var(--color-text-maxcontrast);
+}
+
+.quickbook-settings__report {
+	margin: 12px 0;
+	border-collapse: collapse;
+}
+
+.quickbook-settings__report th,
+.quickbook-settings__report td {
+	padding: 6px 12px;
+	border-bottom: 1px solid var(--color-border);
+	text-align: left;
+	vertical-align: top;
+}
+
+.quickbook-settings__result--fail td:nth-child(2) {
+	color: var(--color-error-text, var(--color-error));
+	font-weight: bold;
+}
+
+.quickbook-settings__result--pass td:nth-child(2) {
+	color: var(--color-success-text, var(--color-success));
+}
