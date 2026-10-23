@@ -3,7 +3,7 @@ APP := quickbook
 VERSION := $(shell sed -n 's:.*<version>\(.*\)</version>.*:\1:p' $(APP)/appinfo/info.xml)
 DIST := dist/$(APP)-$(VERSION).tar.gz
 
-.PHONY: package dev lint clean
+.PHONY: package release dev lint clean
 
 package: $(DIST)
 
@@ -14,6 +14,10 @@ $(DIST): $(shell find $(APP) -type f)
 	cd dist && sha256sum $(notdir $@) > $(notdir $@).sha256
 	@echo "Built $@"
 	@cat $@.sha256
+
+# Signed App Store release (see dev/release.sh)
+release:
+	./dev/release.sh
 
 dev:
 	./dev/setup.sh

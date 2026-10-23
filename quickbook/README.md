@@ -12,6 +12,18 @@ Calendar appointment.
 
 Nextcloud and the Calendar app are not modified.
 
+## Screenshots
+
+![Step 1: pick a date and a free time](../docs/screenshots/1-date-time.png)
+
+| Your details | Review & confirm |
+| --- | --- |
+| ![Step 2: name, email and an optional comment](../docs/screenshots/2-details.png) | ![Step 3: check the booking and confirm](../docs/screenshots/3-review.png) |
+
+| Booked | On a phone |
+| --- | --- |
+| ![Booked: the confirmation email is on its way](../docs/screenshots/4-booked.png) | ![The booking page on a phone](../docs/screenshots/5-phone.png) |
+
 ## Features
 
 - **Share the usual Calendar link**: the Calendar's own booking link
@@ -48,8 +60,9 @@ Nextcloud and the Calendar app are not modified.
 
 Quick Booking uses internal (non-public) code of the Calendar app. It does not
 switch itself off just because a version changed; it switches off only when
-it sees that something is broken. The app has no maximum Nextcloud version for
-the same reason, so a Nextcloud upgrade does not disable it; the self-check decides.
+it sees that something is broken. The maximum Nextcloud version in `info.xml`
+(required by the App Store) is set generously for the same reason: within that
+range, the self-check decides.
 
 | When | What is checked |
 | --- | --- |
@@ -76,6 +89,11 @@ length, start between now and the booking horizon, named timezones only), so a
 single visitor cannot switch Quick Booking off.
 
 ## Install on your server
+
+From the App Store: Apps → Organization → Quick Booking → Download and enable, then
+continue with step 4.
+
+By hand:
 
 1. `make package` → `dist/quickbook-<version>.tar.gz` and its checksum file.
    Copy both to the server and run `sha256sum -c quickbook-<version>.tar.gz.sha256`;
@@ -113,6 +131,18 @@ Requires Docker. Everything runs in containers; no PHP or Node on the host.
 make dev     # Nextcloud 34.0.5 + Calendar + Mailpit, app mounted from ./quickbook
 make lint    # PHP syntax check
 ```
+
+### Release to the App Store
+
+1. Bump `<version>` in `appinfo/info.xml` (and `max-version` when a new Nextcloud
+   major is out and `occ quickbook:check` passes on it), commit.
+2. `make release` (dev environment running): builds `dist/quickbook-<version>.tar.gz`
+   from the committed code, code-signed with `occ integrity:sign-app`, plus
+   `.sha256` and the archive signature `.sig`. Key and certificate are read from
+   `~/.nextcloud/certificates/quickbook.{key,crt}`; never commit them.
+3. `gh release create v<version> dist/quickbook-<version>.tar.gz dist/quickbook-<version>.tar.gz.sha256`
+4. https://apps.nextcloud.com/developer/apps/releases/new: download URL of the
+   `.tar.gz` asset from step 3, signature = contents of the `.sig` file.
 
 - Nextcloud: http://localhost:8080 (user `admin`, password in `dev/.env`)
 - Mailpit (all outgoing email): http://localhost:8025
