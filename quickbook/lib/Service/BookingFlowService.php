@@ -85,7 +85,7 @@ class BookingFlowService {
 	 *
 	 * @throws ValidationException|EmailLimitException|ScheduleNotFoundException|SlotUnavailableException|CalendarUnavailableException|TemporaryFailureException
 	 */
-	public function book(string $token, int $start, int $end, string $timeZone, string $displayName, string $email, string $description): Schedule {
+	public function book(string $token, int $start, int $end, string $timeZone, string $displayName, string $email, string $description): void {
 		// Invisible characters could make the name or comment look different in the email
 		// and the calendar event than what was typed
 		$displayName = trim((string)preg_replace('/\s+/u', ' ', (string)preg_replace(self::INVISIBLE, '', $displayName)));
@@ -130,8 +130,6 @@ class BookingFlowService {
 		} finally {
 			$this->lockingProvider->releaseLock($lock, ILockingProvider::LOCK_EXCLUSIVE);
 		}
-
-		return $schedule;
 	}
 
 	/**

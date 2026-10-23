@@ -98,20 +98,6 @@ class CalendarBridge {
 	}
 
 	/**
-	 * @return list<Schedule>
-	 * @throws CalendarUnavailableException|TemporaryFailureException
-	 */
-	public function listSchedulesForUser(string $userId): array {
-		return $this->call('list schedules', function () use ($userId): array {
-			$configs = $this->get(ContractCheck::CONFIG_SERVICE)->getAllAppointmentConfigurations($userId);
-			if (!is_array($configs)) {
-				throw new IncompatibleCalendarException('getAllAppointmentConfigurations() returned ' . get_debug_type($configs));
-			}
-			return array_values(array_map(fn ($config) => $this->toSchedule($config), $configs));
-		});
-	}
-
-	/**
 	 * Free slots according to the Calendar's own rules (availability, buffers,
 	 * daily limit, conflicts, minimum notice, future limit).
 	 *
@@ -158,29 +144,15 @@ class CalendarBridge {
 	}
 
 	/**
-	 * The Calendar's booking link for this schedule: the link to share. It opens Quick Booking
-	 * while that works ({@see CalendarLinkMiddleware}) and the Calendar's own page otherwise.
-	 */
-	public function shareUrl(string $token): ?string {
-		return $this->calendarPageUrl($token, []);
-	}
-
-	/**
-	 * URL that always shows the Calendar's own booking page (with email confirmation)
+	 * URL that always shows the Calendar's own booking page (with email confirmation).
+	 * The marker stops {@see CalendarLinkMiddleware} from redirecting it back to Quick Booking.
 	 */
 	public function fallbackUrl(string $token): ?string {
-		return $this->calendarPageUrl($token, [CalendarLinkMiddleware::FALLBACK_PARAMETER => 'fallback']);
-	}
-
-	/**
-	 * @param array<string, string> $parameters
-	 */
-	private function calendarPageUrl(string $token, array $parameters): ?string {
 		try {
 			if (!$this->appManager->isEnabledForAnyone('calendar')) {
 				return null;
 			}
-			return $this->urlGenerator->linkToRouteAbsolute(ContractCheck::FALLBACK_ROUTE, ['token' => $token] + $parameters);
+			return $this->urlGenerator->linkToRouteAbsolute(ContractCheck::FALLBACK_ROUTE, ['token' => $token, CalendarLinkMiddleware::FALLBACK_PARAMETER => 'fallback']);
 		} catch (\Throwable) {
 			return null;
 		}
@@ -354,15 +326,12 @@ class CalendarBridge {
 		} catch (\JsonException) {
 			$availability = [];
 		}
-		$visibility = $config->getVisibility();
 		return new Schedule(
 			id: (int)$config->getId(),
-			token: (string)$config->getToken(),
 			userId: (string)$config->getUserId(),
 			name: (string)$config->getName(),
 			description: (string)($config->getDescription() ?? ''),
 			location: (string)($config->getLocation() ?? ''),
-			isPublic: $visibility === null || strtoupper((string)$visibility) === 'PUBLIC',
 			lengthSeconds: (int)$config->getLength(),
 			start: $config->getStart() === null ? null : (int)$config->getStart(),
 			end: $config->getEnd() === null ? null : (int)$config->getEnd(),

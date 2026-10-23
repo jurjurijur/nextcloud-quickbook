@@ -17,12 +17,10 @@ final class Schedule {
 	 */
 	public function __construct(
 		public readonly int $id,
-		public readonly string $token,
 		public readonly string $userId,
 		public readonly string $name,
 		public readonly string $description,
 		public readonly string $location,
-		public readonly bool $isPublic,
 		public readonly int $lengthSeconds,
 		public readonly ?int $start,
 		public readonly ?int $end,

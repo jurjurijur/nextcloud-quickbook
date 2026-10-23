@@ -22,7 +22,6 @@ class ContractCheck {
 	public const INTERVAL = 'OCA\Calendar\Service\Appointments\Interval';
 	public const CLIENT_EXCEPTION = 'OCA\Calendar\Exception\ClientException';
 	public const NO_SLOT_EXCEPTION = 'OCA\Calendar\Exception\NoSlotFoundException';
-	public const SERVICE_EXCEPTION = 'OCA\Calendar\Exception\ServiceException';
 
 	/** Route of the Calendar's own booking page, used as fallback */
 	public const FALLBACK_ROUTE = 'calendar.appointment.show';
@@ -32,7 +31,6 @@ class ContractCheck {
 		[self::BOOKING_SERVICE, 'getAvailableSlots', [self::CONFIG, 'int', 'int']],
 		[self::BOOKING_SERVICE, 'confirmBooking', [self::BOOKING, self::CONFIG]],
 		[self::CONFIG_SERVICE, 'findByToken', ['string']],
-		[self::CONFIG_SERVICE, 'getAllAppointmentConfigurations', ['string', '?string']],
 		[self::BOOKING_MAPPER, 'insert', [Entity::class]],
 		[self::BOOKING_MAPPER, 'delete', [Entity::class]],
 		[self::CONFIG, 'getAvailabilityAsArray', []],
@@ -43,13 +41,12 @@ class ContractCheck {
 	/** Entity fields accessed through the magic getters and setters */
 	private const FIELDS = [
 		self::BOOKING => ['apptConfigId', 'createdAt', 'token', 'displayName', 'description', 'email', 'start', 'end', 'timezone', 'confirmed'],
-		self::CONFIG => ['id', 'token', 'name', 'description', 'location', 'visibility', 'userId', 'length', 'availability', 'start', 'end', 'futureLimit', 'timeBeforeNextSlot'],
+		self::CONFIG => ['id', 'name', 'description', 'location', 'userId', 'length', 'availability', 'start', 'end', 'futureLimit', 'timeBeforeNextSlot'],
 	];
 
 	private const CLASSES = [
 		self::CLIENT_EXCEPTION,
 		self::NO_SLOT_EXCEPTION,
-		self::SERVICE_EXCEPTION,
 	];
 
 	/**
@@ -127,11 +124,6 @@ class ContractCheck {
 	private function acceptsType(?\ReflectionType $type, string $expected): bool {
 		if ($type === null) {
 			return true;
-		}
-		$nullable = str_starts_with($expected, '?');
-		$expected = ltrim($expected, '?');
-		if ($nullable && !$type->allowsNull()) {
-			return false;
 		}
 		$named = $type instanceof \ReflectionUnionType ? $type->getTypes() : [$type];
 		foreach ($named as $candidate) {

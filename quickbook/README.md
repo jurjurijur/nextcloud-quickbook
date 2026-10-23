@@ -18,7 +18,8 @@ Nextcloud and the Calendar app are not modified.
   (`https://<cloud>/apps/calendar/appointment/<token>`, "Copy link" in the Calendar
   app) opens the Quick Booking page. When Quick Booking is switched off, disabled
   or removed, the same link shows the Calendar's own booking page, so a shared
-  link never breaks. The links are also listed under Settings → Personal → Quick Booking.
+  link never breaks. To always get the Calendar's own page (with email
+  confirmation), add `?qb=fallback` to the link.
   The Quick Booking page itself is `https://<cloud>/apps/quickbook/book/<token>`;
   don't share that one, it gives a 404 when the app is not installed.
 - **Minimum notice**: use the Calendar's own "Minimum time before next slot"

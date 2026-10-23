@@ -14,7 +14,7 @@ Visitors pick a date and time, enter their details, review and confirm on the sa
 * Share the usual Calendar booking link ("Copy link" in the Calendar app): it opens Quick Booking.
 * Built-in rate limiting of bookings per visitor and per email address.
 * Self-check: verifies after every Calendar or Nextcloud update that it still works, and lets the booking link show the standard Calendar booking page when something breaks.]]></description>
-	<version>0.4.1</version>
+	<version>0.4.2</version>
 	<licence>agpl</licence>
 	<author mail="jurjurijur@gmail.com">jurien</author>
 	<namespace>QuickBook</namespace>
@@ -38,7 +38,5 @@ Visitors pick a date and time, enter their details, review and confirm on the sa
 	<settings>
 		<admin>OCA\QuickBook\Settings\AdminSettings</admin>
 		<admin-section>OCA\QuickBook\Settings\AdminSection</admin-section>
-		<personal>OCA\QuickBook\Settings\PersonalSettings</personal>
-		<personal-section>OCA\QuickBook\Settings\PersonalSection</personal-section>
 	</settings>
 </info>

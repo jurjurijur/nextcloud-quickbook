@@ -7,12 +7,7 @@
 
 	const APP = 'quickbook'
 
-	function t(text, vars) {
-		if (typeof window.t === 'function') {
-			return window.t(APP, text, vars, undefined, { escape: false })
-		}
-		return text.replace(/{(\w+)}/g, (match, key) => (vars && key in vars ? String(vars[key]) : match))
-	}
+	const t = (text, vars) => window.t(APP, text, vars, undefined, { escape: false })
 
 	function loadState(key) {
 		const input = document.getElementById(`initial-state-${APP}-${key}`)
@@ -362,7 +357,6 @@
 
 		const form = h('form', {
 			class: 'quickbook__form',
-			novalidate: false,
 			onsubmit: (event) => {
 				event.preventDefault()
 				const data = new FormData(event.target)

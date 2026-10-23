@@ -73,7 +73,7 @@ class BookingApiController extends Controller {
 		} catch (\Exception $e) {
 			return $this->error($e, $token);
 		}
-		return new JSONResponse(['start' => $start, 'end' => $end, 'email' => trim($email)], Http::STATUS_CREATED);
+		return new JSONResponse([], Http::STATUS_CREATED);
 	}
 
 	private function error(\Exception $e, string $token): JSONResponse {

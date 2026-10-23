@@ -37,7 +37,6 @@ class HealthState {
 	private const KEY_BROKEN = 'health_broken';
 	private const KEY_SOURCE = 'health_source';
 	private const KEY_REASON = 'health_reason';
-	private const KEY_BROKEN_AT = 'health_broken_at';
 	private const KEY_BROKEN_VERSION = 'health_broken_version';
 	private const KEY_CHECKED_VERSION = 'health_checked_version';
 	private const KEY_LAST_FULL_CHECK = 'health_last_full_check';
@@ -112,7 +111,6 @@ class HealthState {
 		$this->appConfig->setValueBool(Application::APP_ID, self::KEY_BROKEN, true);
 		$this->appConfig->setValueString(Application::APP_ID, self::KEY_SOURCE, $source);
 		$this->appConfig->setValueString(Application::APP_ID, self::KEY_REASON, mb_substr($reason, 0, 2000));
-		$this->appConfig->setValueInt(Application::APP_ID, self::KEY_BROKEN_AT, $this->timeFactory->getTime());
 		$this->appConfig->setValueString(Application::APP_ID, self::KEY_BROKEN_VERSION, $this->currentVersions());
 
 		if (!$wasBroken) {
@@ -169,7 +167,7 @@ class HealthState {
 	}
 
 	/**
-	 * @return array{broken: bool, source: string, reason: string, brokenAt: int, brokenVersion: string, checkedVersion: string, calendarVersion: string, nextcloudVersion: string, lastFullCheck: int, report: list<array{name: string, status: string, detail: string}>}
+	 * @return array{broken: bool, source: string, reason: string, calendarVersion: string, nextcloudVersion: string, lastFullCheck: int, report: list<array{name: string, status: string, detail: string}>}
 	 */
 	public function getStatus(): array {
 		try {
@@ -181,9 +179,6 @@ class HealthState {
 			'broken' => $this->isBroken(),
 			'source' => $this->getBrokenSource(),
 			'reason' => $this->getReason(),
-			'brokenAt' => $this->appConfig->getValueInt(Application::APP_ID, self::KEY_BROKEN_AT),
-			'brokenVersion' => $this->getBrokenVersion(),
-			'checkedVersion' => $this->getCheckedVersion(),
 			'calendarVersion' => $this->currentCalendarVersion(),
 			'nextcloudVersion' => $this->currentNextcloudVersion(),
 			'lastFullCheck' => $this->getLastFullCheck(),
