@@ -336,11 +336,11 @@ msgstr "Terminname"
 
 #: quickbook/js/calendar-onetime.js:905
 msgid "Create a Talk room"
-msgstr "Einen Talk-Raum erstellen"
+msgstr "Nextcloud-Talk-Raum erstellen"
 
 #: quickbook/js/calendar-onetime.js:914
 msgid "A unique link will be generated for every booked appointment and sent via the confirmation email"
-msgstr "Für jeden gebuchten Termin wird ein eindeutiger Link generiert und mit der Bestätigungs-E-Mail versendet."
+msgstr "Für jeden gebuchten Termin wird ein eigener Konferenzraum in Nextcloud Talk erstellt. Der Zugangslink wird mit der Bestätigungs-E-Mail versendet."
 
 #: quickbook/js/calendar-onetime.js:918
 msgid "Description"
@@ -348,11 +348,11 @@ msgstr "Beschreibung"
 
 #: quickbook/js/calendar-onetime.js:922
 msgid "Duration (minutes)"
-msgstr "Dauer (Minuten)"
+msgstr "Dauer eines Termins (Minuten)"
 
 #: quickbook/js/calendar-onetime.js:923
 msgid "Increments"
-msgstr "Schritte"
+msgstr "Abstand zwischen möglichen Startzeiten"
 
 #: quickbook/js/calendar-onetime.js:927
 msgid "Visibility"
@@ -360,7 +360,7 @@ msgstr "Sichtbarkeit"
 
 #: quickbook/js/calendar-onetime.js:928
 msgid "Public – shown on profile page"
-msgstr "Öffentlich – wird auf der Profilseite angezeigt"
+msgstr "Öffentlich – wird auf der Profilseite angezeigt und ist über einen Link erreichbar"
 
 #: quickbook/js/calendar-onetime.js:929
 msgid "Private – only accessible via link"
@@ -392,7 +392,7 @@ msgstr "Puffer nach dem Termin"
 
 #: quickbook/js/calendar-onetime.js:962
 msgid "Minimum time before next slot"
-msgstr "Mindestzeit bis zum nächsten Zeitfenster"
+msgstr "Mindestvorlaufzeit für Buchungen"
 
 #: quickbook/js/calendar-onetime.js:963
 msgid "Max slots per day"
@@ -581,7 +581,7 @@ msgstr "Bitte gib die Dauer in Minuten ein"
 
 #: quickbook/lib/OneTime/OneTimeService.php:267
 msgid "Please choose the increments"
-msgstr "Bitte wähle die Schritte"
+msgstr "Bitte wähle den Abstand zwischen möglichen Startzeiten"
 
 #: quickbook/lib/OneTime/OneTimeService.php:268
 msgid "Please choose the buffer before the event"
@@ -593,7 +593,7 @@ msgstr "Bitte wähle den Puffer nach dem Termin"
 
 #: quickbook/lib/OneTime/OneTimeService.php:270
 msgid "Please choose the minimum time before the next slot"
-msgstr "Bitte wähle die Mindestzeit bis zum nächsten Zeitfenster"
+msgstr "Bitte wähle die Mindestvorlaufzeit für Buchungen"
 
 #: quickbook/lib/OneTime/OneTimeService.php:273
 msgid "Please enter the maximum number of slots per day, or leave it empty"
